@@ -28,7 +28,8 @@
 }
 
 @layer base {
-  html, body, #root { height: 100%; }
+  html, body, #root { min-height: 100%; }
+  #root { display: flex; flex-direction: column; }
   body {
     background: radial-gradient(1400px 900px at 50% -10%, #2a1255 0%, #150828 35%, #0a0612 75%, #06030d 100%);
     color: var(--color-ink-50);

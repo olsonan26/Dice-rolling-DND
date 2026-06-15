@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import { ContactShadows } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
 import * as THREE from "three";
@@ -8,6 +8,42 @@ import { Die } from "./Die";
 import { Tray, TRAY } from "./Tray";
 import { secureRandomRange } from "../lib/random";
 import { playReveal, playWhoosh } from "../lib/audio";
+
+/** Adjusts the camera based on viewport aspect ratio so the whole tray is
+ * always visible — pulls back and raises FOV on narrow / portrait screens. */
+function ResponsiveCamera() {
+  const camera = useThree(s => s.camera) as THREE.PerspectiveCamera;
+  const size = useThree(s => s.size);
+  useEffect(() => {
+    const aspect = size.width / Math.max(1, size.height);
+    // Tray needs to fit roughly 10 units wide and 7 units deep in projection.
+    // Pick fov + distance per aspect so it always frames nicely.
+    let fov: number;
+    let pos: [number, number, number];
+    if (aspect >= 1.4) {
+      // Wide desktop
+      fov = 34;
+      pos = [0, 10.5, 9];
+    } else if (aspect >= 1.0) {
+      // Square-ish / small desktop
+      fov = 40;
+      pos = [0, 11.5, 9.8];
+    } else if (aspect >= 0.7) {
+      // Tablet portrait
+      fov = 52;
+      pos = [0, 12.5, 11];
+    } else {
+      // Phone portrait
+      fov = 62;
+      pos = [0, 14, 12];
+    }
+    camera.fov = fov;
+    camera.position.set(...pos);
+    camera.lookAt(0, 0, 0);
+    camera.updateProjectionMatrix();
+  }, [camera, size.width, size.height]);
+  return null;
+}
 
 /** Sample a position above the tray for spawning a die. */
 function spawnPoint(i: number, n: number): THREE.Vector3 {
@@ -62,6 +98,7 @@ function DiceFieldInner() {
 
   return (
     <>
+      <ResponsiveCamera />
       <Tray />
       {dice.map((d, i) => (
         <Die

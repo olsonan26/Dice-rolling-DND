@@ -45,12 +45,40 @@ function App() {
   }, [phase, startThrow, reset]);
 
   return (
-    <div className="relative grid h-full grid-rows-[auto_1fr] overflow-hidden text-ink-50">
+    <div className="relative flex min-h-dvh flex-col text-ink-50 lg:h-dvh lg:overflow-hidden">
       <Header muted={muted} setMuted={setMuted} />
 
-      <main className="grid h-full min-h-0 grid-cols-1 gap-4 px-4 pb-4 lg:grid-cols-[340px_1fr_340px]">
-        {/* Left sidebar */}
-        <aside className="glass scrollbar-fancy order-2 flex max-h-[calc(100vh-7rem)] flex-col gap-5 overflow-y-auto rounded-2xl p-4 lg:order-1">
+      <main
+        className="
+          flex flex-1 min-h-0 flex-col gap-3 px-3 pb-4
+          lg:grid lg:grid-cols-[340px_1fr_340px] lg:gap-4 lg:px-4
+        "
+      >
+        {/* Center scene — first on mobile, middle on desktop */}
+        <section
+          className="
+            relative order-1 overflow-hidden rounded-2xl border border-white/5
+            h-[44svh] min-h-[300px]
+            lg:order-2 lg:h-auto lg:min-h-0
+          "
+        >
+          <div className="absolute inset-0">
+            <Suspense fallback={null}>
+              <DiceScene />
+            </Suspense>
+          </div>
+          <ResultBanner />
+          <CritEffects />
+          <SceneOverlay />
+        </section>
+
+        {/* Left sidebar — second on mobile, left on desktop */}
+        <aside
+          className="
+            glass scrollbar-fancy order-2 flex flex-col gap-4 rounded-2xl p-3
+            lg:order-1 lg:max-h-[calc(100dvh-7rem)] lg:gap-5 lg:overflow-y-auto lg:p-4
+          "
+        >
           <section>
             <SectionLabel>Choose Your Die</SectionLabel>
             <DicePicker />
@@ -62,20 +90,14 @@ function App() {
           <Provenance />
         </aside>
 
-        {/* Center scene */}
-        <section className="relative order-1 min-h-[60vh] overflow-hidden rounded-2xl border border-white/5 lg:order-2 lg:min-h-0">
-          <div className="absolute inset-0">
-            <Suspense fallback={null}>
-              <DiceScene />
-            </Suspense>
-          </div>
-          <ResultBanner />
-          <CritEffects />
-          <SceneOverlay />
-        </section>
-
-        {/* Right sidebar */}
-        <aside className="glass order-3 flex max-h-[calc(100vh-7rem)] flex-col overflow-hidden rounded-2xl p-4">
+        {/* Right sidebar — last on mobile, right on desktop */}
+        <aside
+          className="
+            glass order-3 flex flex-col rounded-2xl p-3
+            min-h-[260px]
+            lg:max-h-[calc(100dvh-7rem)] lg:overflow-hidden lg:p-4
+          "
+        >
           <div className="mb-3 flex items-center gap-1 rounded-lg bg-white/4 p-1">
             <TabButton active={tab === "history"} onClick={() => setTab("history")}>
               History
