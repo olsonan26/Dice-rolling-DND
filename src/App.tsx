@@ -87,7 +87,6 @@ function App() {
             <SectionLabel>Roll</SectionLabel>
             <Controls />
           </section>
-          <Provenance />
         </aside>
 
         {/* Right sidebar — last on mobile, right on desktop */}
@@ -169,16 +168,6 @@ function TabButton({
     >
       {children}
     </button>
-  );
-}
-
-function Provenance() {
-  return (
-    <p className="mt-auto font-mono text-[10px] leading-relaxed text-ink-200/35">
-      Outcomes use <span className="text-gold-300/80">crypto.getRandomValues()</span> with rejection
-      sampling — zero modulo bias. Physics simulated with Rapier. History stored locally in your
-      browser (IndexedDB).
-    </p>
   );
 }
 
