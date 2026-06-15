@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink-50: #f5f0e6;
+  --color-ink-100: #e9dfca;
+  --color-ink-200: #cdbf9c;
+  --color-ink-300: #a8956a;
+  --color-ink-400: #7c6a40;
+  --color-ink-500: #4c3e1f;
+  --color-ink-900: #06030d;
+  --color-velvet-50: #f6efff;
+  --color-velvet-100: #e6d4ff;
+  --color-velvet-200: #c89cff;
+  --color-velvet-300: #9c5cff;
+  --color-velvet-400: #6f2bd9;
+  --color-velvet-500: #4b1893;
+  --color-velvet-700: #240d4d;
+  --color-velvet-900: #100322;
+  --color-gold-100: #fff4d1;
+  --color-gold-300: #fbd34a;
+  --color-gold-400: #f5b022;
+  --color-gold-500: #d6900f;
+  --color-gold-700: #8a5500;
+  --color-crimson-500: #d62e3f;
+  --font-display: "Cormorant Garamond", "Cormorant", "Playfair Display", Georgia, ui-serif, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, "JetBrains Mono", "Menlo", monospace;
+}
+
+@layer base {
+  html, body, #root { height: 100%; }
+  body {
+    background: radial-gradient(1400px 900px at 50% -10%, #2a1255 0%, #150828 35%, #0a0612 75%, #06030d 100%);
+    color: var(--color-ink-50);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  * { box-sizing: border-box; }
+  ::selection { background: var(--color-gold-400); color: #1a0d00; }
+}
+
+@layer utilities {
+  .glass {
+    background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.015));
+    backdrop-filter: blur(18px) saturate(150%);
+    -webkit-backdrop-filter: blur(18px) saturate(150%);
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.05) inset, 0 30px 60px -30px rgba(0,0,0,0.7);
+  }
+  .glass-strong {
+    background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.025));
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.08) inset, 0 40px 80px -30px rgba(0,0,0,0.8);
+  }
+  .text-balance { text-wrap: balance; }
+  .grain::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay; opacity: 0.5;
+  }
+  .scrollbar-fancy::-webkit-scrollbar { width: 8px; }
+  .scrollbar-fancy::-webkit-scrollbar-track { background: transparent; }
+  .scrollbar-fancy::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 4px; }
+  .scrollbar-fancy::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.16); }
+}
+
+/* Display serif from Google Fonts loaded via preconnect link in head */
+@font-face {
+  font-family: "Cormorant Garamond";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: local("Cormorant Garamond");
+}

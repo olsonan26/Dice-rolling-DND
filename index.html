@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/dice.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0a0612" />
+    <meta name="description" content="A luxury digital dice tray. Real 3D physics. Crypto-secure rolls. Built for tabletop." />
+    <title>Dice Tray — Premium 3D Dice Roller</title>
+    <style>
+      html, body, #root { height: 100%; margin: 0; padding: 0; background: #0a0612; color: #f5f0e6; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Inter, sans-serif; overscroll-behavior: none; }
+      #initial-loader { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background: radial-gradient(1200px 800px at 50% 30%, #1a0c2d 0%, #0a0612 60%, #06030d 100%); z-index: 9999; transition: opacity .6s ease; }
+      #initial-loader .ring { width:64px; height:64px; border-radius:50%; border:2px solid rgba(255,255,255,0.08); border-top-color:#fbbf24; animation: spin 1s linear infinite; }
+      @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+  </head>
+  <body>
+    <div id="initial-loader"><div class="ring"></div></div>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
